@@ -1,4 +1,4 @@
-files=`$(pwd)/files`
+script_location="$(pwd)/files"
 LOG=/tmp/robohop.log
 exec &>>${LOG}
 
