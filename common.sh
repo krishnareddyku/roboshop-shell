@@ -10,3 +10,4 @@ status_check () {
     exit
   fi
 }
+echo $script_location >/dev/null
