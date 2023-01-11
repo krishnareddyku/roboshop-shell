@@ -1,7 +1,7 @@
 source common.sh
 
 print_head "configure mongodb repo file"
-mongo_repo
+cp "${script_location}/mongo.repo" /etc/yum.repo.d/mongo.repo
 status_check
 
 print_head "Install mongodb"

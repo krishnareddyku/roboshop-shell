@@ -46,11 +46,11 @@ systemctl start catalogue
 status_check
 
 print_head "Configure catalogue service"
-catalogue_service_config
+cp "${script_location}/catalogue.service" /etc/systemd/system/catalogue.service
 status_check
 
 print_head "configure mongodb repo file"
-mongo_repo
+cp "${script_location}/mongo.repo" /etc/yum.repo.d/mongo.repo
 status_check
 
 print_head "Install mongodb-shell"
@@ -58,5 +58,5 @@ yum install mongodb-org-shell -y
 status_check
 
 print_head "load mongodb schema"
-mongo --host ${MONGODB-SERVER-IPADDRESS} </app/schema/catalogue.js
+mongo --host "${MONGODB-SERVER-IPADDRESS}" </app/schema/catalogue.js
 status_check
