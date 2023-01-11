@@ -13,7 +13,7 @@ yum install redis -y
 status_check
 
 print_head "Update listen address"
-sed -i -e '/127.0.0.1/0.0.0.0/' /etc/redis.conf
+sed -i -e '/127.0.0.1/0.0.0.0/' /etc/redis.conf  /etc/redis/redis.conf
 status_check
 
 print_head "Enable systemd redis"
