@@ -1,4 +1,4 @@
-files="$(pwd)/files"
+files=`$(pwd)/files`
 LOG=/tmp/robohop.log
 exec &>>${LOG}
 
