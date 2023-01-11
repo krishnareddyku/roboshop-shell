@@ -71,7 +71,7 @@ NODEJS() {
   cp "${script_location}/${component}.service" /etc/systemd/system/${component}.service
   status_check
 
-  if [ ${schema_load} == true ];then
+  if [ ${schema_load} == true ]; then
   print_head "configure mongodb repo file"
   cp "${script_location}/mongo.repo" /etc/yum.repo.d/mongo.repo
   status_check
