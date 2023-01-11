@@ -1,11 +1,11 @@
 source common.sh
 script_location="$(pwd)/files"
 
-echo -e "\e[35m Install Nginx\e[0m"
+print_head "Install Nginx"
 yum install nginx -y
 status_check
 
-echo -e "\e[35m Remove Nginx Old Content\e[0m"
+print_head "Remove Nginx Old Content"
 rm -rf /usr/share/nginx/html/*
 status_check
 

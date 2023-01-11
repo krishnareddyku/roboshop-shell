@@ -1,6 +1,9 @@
 script_location="$(pwd)/files"
 LOG=/tmp/robohop.log
 exec &>>${LOG}
+
+echo $script_location >/dev/null
+
 status_check () {
   if [ $? -eq 0 ];then
     echo -e "\e[1;31mSUCCESS\e[0m"
@@ -10,4 +13,7 @@ status_check () {
     exit
   fi
 }
-echo $script_location >/dev/null
+
+print_head() {
+  echo -e "\e[1m $1 \e[0m"
+}
