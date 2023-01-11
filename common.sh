@@ -1,8 +1,9 @@
 script_location="$(pwd)/files"
 LOG=/tmp/robohop.log
+MONGODB-SERVER-IPADDRESS=localhost
 exec &>>${LOG}
 
-echo $script_location >/dev/null
+echo "$script_location" >/dev/null
 
 status_check () {
   if [ $? -eq 0 ];then
@@ -19,24 +20,9 @@ print_head() {
 }
 
 mongo_repo() {
-  [mongodb-org-4.2]
-  name=MongoDB Repository
-  baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.2/x86_64/
-  gpgcheck=0
-  enabled=1
+cp "${script_location}/mongo.repo" /etc/yum.repo.d/mongo.repo
 }
 
 catalogue_service_config() {
-  [Unit]
-  Description = Catalogue Service
-
-  [Service]
-  User=roboshop
-  Environment=MONGO=true
-  Environment=MONGO_URL="mongodb://<MONGODB-SERVER-IPADDRESS>:27017/catalogue"
-  ExecStart=/bin/node /app/server.js
-  SyslogIdentifier=catalogue
-
-  [Install]
-  WantedBy=multi-user.target
+  cp "${script_location}/catalogue.service" /etc/systemd/system/catalogue.service
 }

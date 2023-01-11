@@ -1,6 +1,6 @@
 source common.sh
 
-print_head "configure mongodb.repo"
+print_head "configure mongodb repo file"
 mongo_repo
 status_check
 
