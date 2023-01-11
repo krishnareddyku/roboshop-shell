@@ -3,8 +3,6 @@ LOG=/tmp/robohop.log
 MONGODB-SERVER-IPADDRESS=localhost
 exec &>>${LOG}
 
-echo "$script_location" >/dev/null
-
 status_check () {
   if [ $? -eq 0 ];then
     echo -e "\e[1;31mSUCCESS\e[0m"
@@ -20,8 +18,6 @@ print_head() {
 }
 
 NODEJS() {
-  source common.sh
-  
   print_head "setup nodejs repo"
   curl -sL https://rpm.nodesource.com/setup_lts.x | sudo bash
   status_check
