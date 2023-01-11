@@ -2,11 +2,12 @@ files="$(pwd)/files"
 LOG=/tmp/robohop.log
 exec &>>${LOG}
 
-status (){
+status () {
   if [ $? -eq 0 ];then
     echo SUCESS
     else
-    echo FAILURE
+    echo -e "\e31mFAILURE\e[0m"
+    echo "refer ${LOG} more info"
     exit
   fi
 }
