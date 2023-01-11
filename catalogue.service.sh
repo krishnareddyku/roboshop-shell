@@ -11,7 +11,7 @@ useradd roboshop
 
 print_head "create /app directory"
 mkdir -p /app
-cd /app
+cd /app || exit
 
 print_head "download catalogue content"
 curl -L -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip
