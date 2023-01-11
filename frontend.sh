@@ -14,13 +14,14 @@ curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.z
 status_check
 
 cd /usr/share/nginx/html || exit
+status_check
 
 echo -e "\e[35m Extract Frontend Content\e[0m"
 unzip /tmp/frontend.zip
 status_check
 
 echo -e "\e[35m update nginx config\e[0m"
-cp ${script_location}/nginx.roboshop.conf /etc/nginx/default.d/roboshop.conf
+cp "${script_location}/nginx.roboshop.conf" /etc/nginx/default.d/roboshop.conf
 status_check
 
 echo -e "\e[35m Restart Nginx\e[0m"
