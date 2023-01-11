@@ -19,10 +19,67 @@ print_head() {
   echo -e "\e[1m $1 \e[0m"
 }
 
-mongo_repo() {
-cp "${script_location}/mongo.repo" /etc/yum.repo.d/mongo.repo
-}
-
-catalogue_service_config() {
-  cp "${script_location}/catalogue.service" /etc/systemd/system/catalogue.service
+NODEJS() {
+  source common.sh
+  
+  print_head "setup nodejs repo"
+  curl -sL https://rpm.nodesource.com/setup_lts.x | sudo bash
+  status_check
+  
+  print_head "Install nodeJs"
+  yum install nodejs -y
+  status_check
+  
+  print_head "add roboshop ${component}"
+  id roboshop
+  if [ $? -eq 0 ];then
+     ${component}add roboshop
+  fi
+  status_check
+  
+  print_head "create /app directory"
+  mkdir -p /app
+  status_check
+  
+  cd /app || exit
+  
+  print_head "download ${component} content"
+  curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
+  status_check
+  
+  print_head " unzip ${component} content under /app"
+  unzip /tmp/${component}.zip
+  status_check
+  
+  print_head "Install nodejs dependencies"
+  npm install
+  status_check
+  
+  print_head "reload systemD"
+  systemctl daemon-reload
+  status_check
+  
+  print_head "enable systemd ${component} service"
+  systemctl enable ${component}
+  status_check
+  
+  print_head "start ${component} service"
+  systemctl start ${component}
+  status_check
+  
+  print_head "Configure ${component} service"
+  cp "${script_location}/${component}.service" /etc/systemd/system/${component}.service
+  status_check
+  
+  print_head "configure mongodb repo file"
+  cp "${script_location}/mongo.repo" /etc/yum.repo.d/mongo.repo
+  status_check
+  
+  print_head "Install mongodb-shell"
+  yum install mongodb-org-shell -y
+  status_check
+  
+  print_head "load mongodb schema"
+  mongo --host "${MONGODB-SERVER-IPADDRESS}" </app/schema/${component}.js
+  status_check
 }
