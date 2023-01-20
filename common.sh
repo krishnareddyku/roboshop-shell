@@ -121,7 +121,7 @@ LOAD_SCHEMA() {
           status_check
 
           print_head "Load schema"
-          mysql -h ${MYSQL-SERVER-IPADDRESS} -uroot -p${root_mysql_password} < /app/schema/shipping.sql
+          mysql -h ${MYSQL-SERVER-IPADDRESS} -uroot -p${root_mysql_password} < /app/schema/${component}
           status_check
       fi
   fi
